@@ -1,37 +1,34 @@
 const User = require("../models/User");
 
 class UserController {
-  createUser(req, res) {
-    User.findOne({
-      where: {
-        email: req.body.email,
-        CPF: req.body.CPF,
-        CRO: req.body.CRO,
-      },
-    }).then((user) => {
+  async createUser(req, res) {
+    try {
+      const user = await User.findOne({
+        where: {
+          email: req.body.email,
+          CPF: req.body.CPF,
+          CRO: req.body.CRO,
+        },
+      });
       if (user) {
         res
           .status(400)
           .json({ mensagem: "Já existe um usuário com esses dados" });
       } else {
-        User.create({
+        const newUser = await User.create({
           nome: req.body.nome,
           telefone: req.body.telefone,
           email: req.body.email,
           CPF: req.body.CPF,
           CRO: req.body.CRO,
           permissao: req.body.permissao,
-        })
-          .then(function (resultado) {
-            res.json({ mensagem: "Usuário inserido com sucesso" });
-          })
-          .catch(function (erro) {
-            res
-              .status(500)
-              .json({ mensagem: "Erro ao inserir usuário" + erro });
-          });
+        });
+        res.json({ mensagem: "Usuário inserido com sucesso", newUser });
       }
-    });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ mensagem: "Erro ao inserir usuário" });
+    }
   }
 
   async readUsers(req, res) {
