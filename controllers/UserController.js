@@ -44,51 +44,25 @@ class UserController {
     }
   }
 
-  updateUsers() {
-    User.update(
-      { nome: "Novo nome", telefone: "Novo telefone" },
-      { where: { id: 1 } }
-    )
-      .then(() => {
-        console.log("Dados atualizados com sucesso!");
-      })
-      .catch((error) => {
-        console.log("Erro ao atualizar dados: ", error);
+  async updateUser(req, res) {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).json({ message: "Usuário não encontrado" });
+      }
+      const updated = await user.update({
+        nome: req.body.nome,
+        telefone: req.body.telefone,
+        email: req.body.email,
+        CPF: req.body.CPF,
+        CRO: req.body.CRO,
+        permissao: req.body.permissao,
       });
+      res.json({ message: "Usuário atualizado com sucesso", updated });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Erro ao atualizar usuário" });
+    }
   }
 }
-
-// class UserController {
-//   createUser(req, res) {
-//   return new Promise((resolve, reject) => {
-//   User.findOne({
-//   where: {
-//   email: req.body.email,
-//   CPF: req.body.CPF,
-//   CRO: req.body.CRO,
-//   },
-//   }).then((user) => {
-//   if (user) {
-//   reject({ mensagem: "Já existe um usuário com esses dados" });
-//   } else {
-//   User.create({
-//   nome: req.body.nome,
-//   telefone: req.body.telefone,
-//   email: req.body.email,
-//   CPF: req.body.CPF,
-//   CRO: req.body.CRO,
-//   permissao: req.body.permissao,
-//   })
-//   .then((resultado) => {
-//   resolve({ mensagem: "Usuário inserido com sucesso" });
-//   })
-//   .catch((erro) => {
-//   reject({ mensagem: "Erro ao inserir usuário" + erro });
-//   });
-//   }
-//   });
-//   });
-//   }
-//   }
-
 module.exports = new UserController();
