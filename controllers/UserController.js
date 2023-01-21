@@ -64,5 +64,19 @@ class UserController {
       res.status(500).json({ message: "Erro ao atualizar usuário" });
     }
   }
+
+  async deleteUser(req, res) {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).json({ message: "Usuário não encontrado" });
+      }
+      await user.destroy();
+      res.json({ message: "Usuário deletado com sucesso" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Erro ao deletar usuário" });
+    }
+  }
 }
 module.exports = new UserController();
