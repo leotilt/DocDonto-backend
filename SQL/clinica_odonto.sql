@@ -1,0 +1,9 @@
+CREATE TABLE clinica_odontos (
+   id INT NOT NULL AUTO_INCREMENT,
+   nome VARCHAR(255) NOT NULL,
+   CNPJ VARCHAR(255) NOT NULL,
+   endereco VARCHAR(255) NOT NULL,
+   createdAt DATETIME,
+   updatedAt DATETIME,
+   PRIMARY KEY (id)
+);
