@@ -1,13 +1,16 @@
 const User = require("../models/User");
+const { Op } = require("sequelize");
 
 class UserController {
   async createUser(req, res) {
     try {
       const user = await User.findOne({
         where: {
-          email: req.body.email,
-          CPF: req.body.CPF,
-          CRO: req.body.CRO,
+          [Op.or]: [
+            { email: req.body.email },
+            { CPF: req.body.CPF },
+            { CRO: req.body.CRO },
+          ],
         },
       });
       if (user) {
@@ -27,7 +30,7 @@ class UserController {
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ mensagem: "Erro ao inserir usuário" });
+      res.status(500).json({ mensagem: "Erro ao inserir usuário" + error });
     }
   }
 
