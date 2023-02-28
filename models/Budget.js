@@ -1,14 +1,5 @@
-require("dotenv").config();
+const sequelize = require('../config/database');
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  "projetoXdb",
-  "root",
-  process.env.ROOT_PASSWORD,
-  {
-    host: "localhost",
-    dialect: "mysql",
-  }
-);
 
 const Budget = sequelize.define("orcamento_pacientes", {
   id: {

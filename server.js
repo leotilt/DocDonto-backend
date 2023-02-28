@@ -19,3 +19,7 @@ app.use("/", routes);
 app.listen(3000, function () {
   console.log("Servidor iniciado na porta 3000");
 });
+
+
+
+/* ROOT_PASSWORD=63524100 - arquivo .env na raiz do diretorio  */ 
