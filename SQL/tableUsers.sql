@@ -13,7 +13,7 @@ CREATE TABLE users (
    PRIMARY KEY (id)
 );
 /* INSERIR NOVA COLUNA NA TABELA users */
-ALTER TABLE users
-ADD nome_tabela varchar(255);
+-- ALTER TABLE users
+-- ADD nome_tabela varchar(255);
 
-DROP TABLE users
+-- DROP TABLE users
