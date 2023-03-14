@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/Paciente");
 const { Op } = require("sequelize");
 
 class UserController {
@@ -6,11 +6,7 @@ class UserController {
     try {
       const user = await User.findOne({
         where: {
-          [Op.or]: [
-            { email: req.body.email },
-            { CPF: req.body.CPF },
-            { CRO: req.body.CRO },
-          ],
+          [Op.or]: [{ CPF: req.body.CPF }],
         },
       });
       if (user) {
@@ -20,11 +16,8 @@ class UserController {
       } else {
         const newUser = await User.create({
           nome: req.body.nome,
-          telefone: req.body.telefone,
-          email: req.body.email,
           CPF: req.body.CPF,
-          CRO: req.body.CRO,
-          permissao: req.body.permissao,
+          responsavel: req.body.responsavel ? true : false,
         });
         res.json({ mensagem: "Usuário inserido com sucesso", newUser });
       }

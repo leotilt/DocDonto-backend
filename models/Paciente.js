@@ -17,11 +17,11 @@ const User = sequelize.define("users", {
     autoIncrement: true,
   },
   nome: Sequelize.STRING,
-  telefone: Sequelize.STRING,
-  email: Sequelize.STRING,
+  responsavel: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
   CPF: Sequelize.STRING,
-  CRO: Sequelize.STRING,
-  permissao: Sequelize.STRING,
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE,
 });

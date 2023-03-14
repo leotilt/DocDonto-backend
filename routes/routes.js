@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require("../controllers/UserController");
+const PacienteController = require("../controllers/PacienteController");
 const ClinicController = require("../controllers/ClinicaController");
 const OrcamentosPacientesController = require("../controllers/OrcamentosPacientesController");
 
 // Rotas UserController
-router.post("/submitform", UserController.createUser);
-router.get("/users", UserController.readUsers);
-router.put("/users/:id", UserController.updateUser);
-router.delete("/users/:id", UserController.deleteUser);
+router.post("/submitform", PacienteController.createUser);
+router.get("/users", PacienteController.readUsers);
+router.put("/users/:id", PacienteController.updateUser);
+router.delete("/users/:id", PacienteController.deleteUser);
 
 // Rotas ClinicaController
 router.post("/createClinic", ClinicController.createClinic);
