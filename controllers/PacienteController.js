@@ -1,13 +1,12 @@
-const User = require("../models/User");
+const User = require("../models/Paciente");
+const { Op } = require("sequelize");
 
-class UserController {
+class PacienteController {
   async createUser(req, res) {
     try {
       const user = await User.findOne({
         where: {
-          email: req.body.email,
-          CPF: req.body.CPF,
-          CRO: req.body.CRO,
+          [Op.or]: [{ CPF: req.body.CPF }],
         },
       });
       if (user) {
@@ -17,17 +16,14 @@ class UserController {
       } else {
         const newUser = await User.create({
           nome: req.body.nome,
-          telefone: req.body.telefone,
-          email: req.body.email,
           CPF: req.body.CPF,
-          CRO: req.body.CRO,
-          permissao: req.body.permissao,
+          responsavel: req.body.responsavel ? true : false,
         });
         res.json({ mensagem: "Usuário inserido com sucesso", newUser });
       }
     } catch (error) {
       console.log(error);
-      res.status(500).json({ mensagem: "Erro ao inserir usuário" });
+      res.status(500).json({ mensagem: "Erro ao inserir usuário" + error });
     }
   }
 
@@ -76,4 +72,4 @@ class UserController {
     }
   }
 }
-module.exports = new UserController();
+module.exports = new PacienteController();
