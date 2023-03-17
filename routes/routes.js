@@ -3,6 +3,7 @@ const router = express.Router();
 const PacienteController = require("../controllers/PacienteController");
 const ClinicController = require("../controllers/ClinicaController");
 const OrcamentosPacientesController = require("../controllers/OrcamentosPacientesController");
+const RelatorioController = require("../controllers/RelatorioController");
 
 // Rotas PacienteController
 router.post("/createPaciente", PacienteController.createUser);
@@ -21,5 +22,7 @@ router.post("/createBudget", OrcamentosPacientesController.createBudget);
 router.get("/budget", OrcamentosPacientesController.readBudgets);
 router.put("/budget/:id", OrcamentosPacientesController.updateBudget);
 router.delete("/budget/:id", OrcamentosPacientesController.deleteBudget);
+// Rotas RelatoioController
+router.get("/relatorios", RelatorioController.getAll);
 
 module.exports = router;
