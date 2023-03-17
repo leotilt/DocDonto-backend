@@ -1,16 +1,7 @@
-require("dotenv").config();
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  "projetoXdb",
-  "root",
-  process.env.ROOT_PASSWORD,
-  {
-    host: "localhost",
-    dialect: "mysql",
-  }
-);
+const database = require("../config/database");
 
-const Clinic = sequelize.define("clinica_odonto", {
+const Clinic = database.define("clinica_odonto", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,

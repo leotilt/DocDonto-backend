@@ -1,7 +1,7 @@
 const User = require("../models/Paciente");
 const { Op } = require("sequelize");
 
-class UserController {
+class PacienteController {
   async createUser(req, res) {
     try {
       const user = await User.findOne({
@@ -72,4 +72,4 @@ class UserController {
     }
   }
 }
-module.exports = new UserController();
+module.exports = new PacienteController();

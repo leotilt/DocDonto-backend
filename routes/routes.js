@@ -4,11 +4,11 @@ const PacienteController = require("../controllers/PacienteController");
 const ClinicController = require("../controllers/ClinicaController");
 const OrcamentosPacientesController = require("../controllers/OrcamentosPacientesController");
 
-// Rotas UserController
-router.post("/submitform", PacienteController.createUser);
-router.get("/users", PacienteController.readUsers);
-router.put("/users/:id", PacienteController.updateUser);
-router.delete("/users/:id", PacienteController.deleteUser);
+// Rotas PacienteController
+router.post("/createPaciente", PacienteController.createUser);
+router.get("/paciente", PacienteController.readUsers);
+router.put("/pacienteUpdate/:id", PacienteController.updateUser);
+router.delete("/pacienteDelete/:id", PacienteController.deleteUser);
 
 // Rotas ClinicaController
 router.post("/createClinic", ClinicController.createClinic);

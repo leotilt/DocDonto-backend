@@ -1,16 +1,7 @@
-require("dotenv").config();
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  "projetoXdb",
-  "root",
-  process.env.ROOT_PASSWORD,
-  {
-    host: "localhost",
-    dialect: "mysql",
-  }
-);
+const database = require("../config/database");
 
-const User = sequelize.define("users", {
+const User = database.define("users", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
