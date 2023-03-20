@@ -24,5 +24,6 @@ router.put("/budget/:id", OrcamentosPacientesController.updateBudget);
 router.delete("/budget/:id", OrcamentosPacientesController.deleteBudget);
 // Rotas RelatoioController
 router.get("/relatorios", RelatorioController.getAll);
+router.get("/gerar-relatorio", RelatorioController.gerarRelatorio);
 
 module.exports = router;
