@@ -1,10 +1,10 @@
-const User = require("../models/Paciente");
+const Paciente = require("../models/Paciente");
 const { Op } = require("sequelize");
 
 class PacienteController {
-  async createUser(req, res) {
+  async createPacient(req, res) {
     try {
-      const user = await User.findOne({
+      const user = await Paciente.findOne({
         where: {
           [Op.or]: [{ CPF: req.body.CPF }],
         },
@@ -14,12 +14,12 @@ class PacienteController {
           .status(400)
           .json({ mensagem: "Já existe um usuário com esses dados" });
       } else {
-        const newUser = await User.create({
+        const newPaciente = await Paciente.create({
           nome: req.body.nome,
           CPF: req.body.CPF,
           responsavel: req.body.responsavel ? true : false,
         });
-        res.json({ mensagem: "Usuário inserido com sucesso", newUser });
+        res.json({ mensagem: "Usuário inserido com sucesso", newPaciente });
       }
     } catch (error) {
       console.log(error);
@@ -27,29 +27,29 @@ class PacienteController {
     }
   }
 
-  async readUsers(req, res) {
+  async readPacient(req, res) {
     try {
-      const users = await User.findAll();
-      res.json(users);
+      const Pacientes = await Paciente.findAll();
+      res.json(Pacientes);
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "Erro ao buscar usuários" });
     }
   }
 
-  async updateUser(req, res) {
+  async updatePacient(req, res) {
     try {
-      const user = await User.findByPk(req.params.id);
-      if (!user) {
+      const paciente = await Paciente.findByPk(req.params.id);
+      if (!paciente) {
         res.status(404).json({ message: "Usuário não encontrado" });
       }
-      const updated = await user.update({
-        nome: req.body.nome,
-        telefone: req.body.telefone,
-        email: req.body.email,
-        CPF: req.body.CPF,
-        CRO: req.body.CRO,
-        permissao: req.body.permissao,
+      const updated = await paciente.update({
+        nome: req.body.nome || paciente.nome,
+        CPF: req.body.CPF || paciente.CPF,
+        responsavel:
+          req.body.responsavel !== undefined
+            ? req.body.responsavel
+            : paciente.responsavel,
       });
       res.json({ message: "Usuário atualizado com sucesso", updated });
     } catch (error) {
@@ -58,17 +58,16 @@ class PacienteController {
     }
   }
 
-  async deleteUser(req, res) {
+  async deletePacient(req, res) {
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await Paciente.findByPk(req.params.id);
       if (!user) {
         res.status(404).json({ message: "Usuário não encontrado" });
       }
       await user.destroy();
       res.json({ message: "Usuário deletado com sucesso" });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Erro ao deletar usuário" });
+      res.status(500).json({ message: "Erro ao deletar usuário" + error });
     }
   }
 }

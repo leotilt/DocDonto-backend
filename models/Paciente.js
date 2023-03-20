@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const database = require("../config/database");
 
-const User = database.define("users", {
+const Paciente = database.define("users", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -17,4 +17,4 @@ const User = database.define("users", {
   updatedAt: Sequelize.DATE,
 });
 
-module.exports = User;
+module.exports = Paciente;

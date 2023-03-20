@@ -6,10 +6,10 @@ const OrcamentosPacientesController = require("../controllers/OrcamentosPaciente
 const RelatorioController = require("../controllers/RelatorioController");
 
 // Rotas PacienteController
-router.post("/createPaciente", PacienteController.createUser);
-router.get("/paciente", PacienteController.readUsers);
-router.put("/pacienteUpdate/:id", PacienteController.updateUser);
-router.delete("/pacienteDelete/:id", PacienteController.deleteUser);
+router.post("/createPaciente", PacienteController.createPacient);
+router.get("/paciente", PacienteController.readPacient);
+router.put("/pacienteUpdate/:id", PacienteController.updatePacient);
+router.delete("/pacienteDelete/:id", PacienteController.deletePacient);
 
 // Rotas ClinicaController
 router.post("/createClinic", ClinicController.createClinic);
